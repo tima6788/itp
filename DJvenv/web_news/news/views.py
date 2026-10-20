@@ -10,6 +10,15 @@ from django.shortcuts import render
 # def index(request):
 #     return render(request, "news/index.html")
 
+def about(request):
+    content = {
+        "title": "О нас",
+        "text": " мы крутой новостной портал ееее лучшие лол кек чики бомбони"
+    }
+    return render(request, "news/about.html", content)
+
+
+
 def index(request):
     context = {
         "title": "Главные новости дня",

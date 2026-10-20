@@ -1,0 +1,53 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+# Временные файлы Python (кэш)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Виртуальное окружение (укажите имя вашей папки, если отличается)
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Переменные окружения и секреты (секретные ключи, пароли БД)
+.env
+.secrets
+local_settings.py
+
+# Локальная база данных SQLite
+*.sqlite3
+*.sqlite3-journal
+
+# Медиафайлы (загрузки пользователей) и собранная статика
+media/
+staticfiles/
+
+# Логи и отчеты об ошибках
+*.log
+pip-log.txt
+
+# Тестирование и покрытие кода
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# Настройки сред разработки (IDE)
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Специфичные файлы ОС
+.DS_Store
+Thumbs.db
+Lib/
+Scripts/

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Новостной портал{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Новостной портал</h1>
+        <p>Последние новости нашего города</p>
+    </header>
+
+    <nav>
+        <a href="{% url 'home' %}">Главная</a>
+        |
+        <a href="{% url 'category' %}">Категории</a>
+        |
+        <a href="% url 'about' %">О нас</a>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>Учебный проект ITSTEP</p>
+    </footer>
+</body>
+</html>

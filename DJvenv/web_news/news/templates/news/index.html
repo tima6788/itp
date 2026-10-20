@@ -1,28 +1,23 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новостной портал</title>
-</head>
-<body>
-    <header>
-        <h1>Новостной портал</h1>
-        <p>Последние новости нашего города</p>
-    </header>
-    <main>
-        <h2>{{ title }}</h2>
-        <section>
-            <h3>Последние публикации</h3>
-            <ul>
-                {% for article in articles %}
-                    <li>{{ article }}</li>
-                {% endfor %}
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>Учебный проект ITSTEP</p>
-    </footer>
-</body>
-</html>
+{% extends "news/base.html" %}
+
+{% block title %}
+Главная — Новостной портал
+{% endblock %}
+
+{% block content %}
+    <h2>{{ title|title}}</h2>
+    <p>{{ subtitle|default:"Самые важные события дня" }}</p>
+    <p>Количество новостей: {{ articles|length }}</p>
+
+    <section>
+        <h3>Последние публикации!!!</h3>
+
+        <ul>
+            {% for article in articles %}
+                <li>{{ article }}</li>
+            {% empty %}
+                <li>Пока нет опубликованных новостей.</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

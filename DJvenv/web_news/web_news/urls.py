@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from news import views
+from news.views import about
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.index, name="home"),
     path("category/", views.category, name="category"),
+    path("about/", views.about, name="about"),
+
 ]
