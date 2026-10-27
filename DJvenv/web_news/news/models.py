@@ -21,6 +21,12 @@ class Article(models.Model):
         verbose_name="Опубликована",
     )
 
+    author = models.CharField(
+        max_length=100,
+        default="Редакция",
+        verbose_name="Автор",
+    )
+
     def __str__(self):
         return self.title
 

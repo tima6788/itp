@@ -5,19 +5,48 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ title|title}}</h2>
-    <p>{{ subtitle|default:"Самые важные события дня" }}</p>
-    <p>Количество новостей: {{ articles|length }}</p>
 
-    <section>
-        <h3>Последние публикации!!!</h3>
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="display-5">
+            Последние новости
+        </h1>
 
-        <ul>
-            {% for article in articles %}
-                <li>{{ article }}</li>
-            {% empty %}
-                <li>Пока нет опубликованных новостей.</li>
-            {% endfor %}
-        </ul>
-    </section>
+        <p class="text-muted">
+            Актуальные события и новости города.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    {% for article in articles %}
+        <div class="col-12 mb-4">
+            <article class="card border-primary shadow-sm">
+                <div class="card-body">
+
+                    <h2 class="card-title h4 text-primary">
+                        {{ article.title }}
+                    </h2>
+
+                    <p class="card-text">
+                        {{ article.content|truncatewords:30 }}
+                    </p>
+
+                    <p class="text-muted small mb-0">
+                        Опубликовано:
+                        {{ article.created_at|date:"d.m.Y H:i" }}
+                    </p>
+
+                </div>
+            </article>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                Пока нет опубликованных новостей.
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

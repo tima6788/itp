@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from .models import Article
 
 # Create your views here.
 # def index(request):
@@ -19,16 +19,24 @@ def about(request):
 
 
 
+
+
+
+
 def index(request):
+    articles = Article.objects.filter(
+        is_published=True
+    ).order_by("-created_at")
+
     context = {
-        "title": "Главные новости дня",
-        "articles": [
-            "В городе открылся новый парк",
-            "Учёные представили новую технологию",
-            "В университете начался учебный год",
-        ],
+        "articles": articles,
     }
-    return render(request, "news/index.html", context)
+
+    return render(
+        request,
+        "news/index.html",
+        context,
+    )
 
 
 def category(request):
@@ -41,3 +49,5 @@ def category(request):
         ],
     }
     return render(request, "news/category.html", context)
+
+
