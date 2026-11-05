@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from .forms import ArticleForm
 
 from .models import Article
 # from .forms import ArticleForm
@@ -19,11 +20,7 @@ def about(request):
 
 
 def article_detail(request, article_id):
-    article = get_object_or_404(
-        Article,
-        id=article_id,
-        is_published=True,
-    )
+    article = Article.objects.get(id=article_id)
 
     context = {
         "article": article,
@@ -34,7 +31,6 @@ def article_detail(request, article_id):
         "news/article_detail.html",
         context,
     )
-
 
 
 
@@ -79,45 +75,45 @@ def category(request, category_name=None):
         "news/category.html",
         context,
     )
-#
-# def edit_article(request, article_id):
-#     article = get_object_or_404(
-#         Article,
-#         id=article_id
-#     )
-#
-#     if request.method == "POST":
-#         form = ArticleForm(
-#             request.POST,
-#             request.FILES,
-#             instance=article
-#         )
-#
-#         if form.is_valid():
-#             article = form.save()
-#
-#             if article.is_published:
-#                 return redirect(
-#                     "article_detail",
-#                     article_id=article.id
-#                 )
-#
-#             return redirect("home")
-#
-#     else:
-#         form = ArticleForm(instance=article)
-#
-#     context = {
-#         "form": form,
-#         "article": article,
-#     }
-#
-#     return render(
-#         request,
-#         "news/edit_article.html",
-#         context
-#     )
-#
+
+def edit_article(request, article_id):
+    article = get_object_or_404(
+        Article,
+        id=article_id
+    )
+
+    if request.method == "POST":
+        form = ArticleForm(
+            request.POST,
+            request.FILES,
+            instance=article
+        )
+
+        if form.is_valid():
+            article = form.save()
+
+            if article.is_published:
+                return redirect(
+                    "article_detail",
+                    article_id=article.id
+                )
+
+            return redirect("home")
+
+    else:
+        form = ArticleForm(instance=article)
+
+    context = {
+        "form": form,
+        "article": article,
+    }
+
+    return render(
+        request,
+        "news/edit_article.html",
+        context
+    )
+
 def test_form(request):
     context = {}
 
@@ -133,5 +129,39 @@ def test_form(request):
     return render(
         request,
         "news/test_form.html",
+        context,
+    )
+
+
+def article_created(request):
+    return render(
+        request,
+        "news/article_created.html",
+    )
+
+
+def add_article(request):
+
+    if request.method == "POST":
+
+        form = ArticleForm(request.POST)
+
+        if form.is_valid():
+
+            article = form.save()
+
+            return redirect("article_created")
+
+
+    else:
+        form = ArticleForm()
+
+    context = {
+        "form": form,
+    }
+
+    return render(
+        request,
+        "news/add_article.html",
         context,
     )

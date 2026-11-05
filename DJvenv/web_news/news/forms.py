@@ -12,6 +12,7 @@ class ArticleForm(forms.ModelForm):
             "title",
             "content",
             "category",
+            "image",
         ]
 
         labels = {
