@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ArticleForm
-
+from django.views.decorators.http import require_POST
 from .models import Article
 # from .forms import ArticleForm
 # Create your views here.
 # def index(request):
 #     return HttpResponse("Главная страница новостей")
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 
 # def index(request):
@@ -31,9 +33,6 @@ def article_detail(request, article_id):
         "news/article_detail.html",
         context,
     )
-
-
-
 
 
 def index(request):
@@ -76,6 +75,8 @@ def category(request, category_name=None):
         context,
     )
 
+
+@login_required
 def edit_article(request, article_id):
     article = get_object_or_404(
         Article,
@@ -114,6 +115,7 @@ def edit_article(request, article_id):
         context
     )
 
+
 def test_form(request):
     context = {}
 
@@ -133,6 +135,7 @@ def test_form(request):
     )
 
 
+@login_required
 def article_created(request):
     return render(
         request,
@@ -141,13 +144,11 @@ def article_created(request):
 
 
 def add_article(request):
-
     if request.method == "POST":
 
         form = ArticleForm(request.POST)
 
         if form.is_valid():
-
             article = form.save()
 
             return redirect("article_created")
@@ -164,4 +165,29 @@ def add_article(request):
         request,
         "news/add_article.html",
         context,
+    )
+
+
+
+
+
+@login_required
+def delete_article(request, article_id):
+    article = get_object_or_404(
+        Article,
+        id=article_id
+    )
+
+    if request.method == "POST":
+        article.delete()
+        return redirect("home")
+
+    context = {
+        "article": article,
+    }
+
+    return render(
+        request,
+        "news/delete_article.html",
+        context
     )

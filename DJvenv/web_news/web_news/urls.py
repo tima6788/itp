@@ -20,6 +20,16 @@ from django.contrib import admin
 from django.urls import path
 from news import views
 from news.views import about
+from news.views import delete_article
+from django.contrib.auth import views as auth_views
+
+# from django.contrib import admin
+# from django.urls import path
+# from django.conf import settings
+# from django.conf.urls.static import static
+# # Импортируем views из папки web_news.news
+# from news import views
+# from django import forms
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -32,6 +42,18 @@ urlpatterns = [
     path("test-form/", views.test_form, name="test_form",),
     path("add-article/", views.add_article, name="add_article",),
     path("article-created/", views.article_created, name="article_created",),
+    path(
+        "article/<int:article_id>/delete/",
+        views.delete_article,
+        name="article_delete"
+    ),
+    path("accounts/login/",auth_views.LoginView.as_view(template_name="registration/login.html"),name="login"),
+
+    path(
+        "accounts/logout/",
+        auth_views.LogoutView.as_view(),
+        name="logout"
+    ),
 ]
 if settings.DEBUG:
     urlpatterns += static(

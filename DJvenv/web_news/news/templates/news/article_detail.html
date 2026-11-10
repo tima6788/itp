@@ -13,9 +13,17 @@
             <a href="{% url 'home' %}" class="btn btn-outline-secondary mb-4">
                 ← На главную
             </a>
-            <a href="{% url 'article_edit' article_id=article.id %}">
-                Редактировать новость
-            </a>
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'article_edit' article_id=article.id %}">
+                    Редактировать новость
+                </a>
+
+                <a href="{% url 'article_delete' article_id=article.id %}">
+                    Удалить новость
+                </a>
+
+            {% endif %}
             <div class="card shadow-sm">
                 <div class="card-body p-4">
 
