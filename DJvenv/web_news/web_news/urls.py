@@ -23,6 +23,7 @@ from news.views import about
 from news.views import delete_article
 from django.contrib.auth import views as auth_views
 
+
 # from django.contrib import admin
 # from django.urls import path
 # from django.conf import settings
@@ -47,12 +48,22 @@ urlpatterns = [
         views.delete_article,
         name="article_delete"
     ),
-    path("accounts/login/",auth_views.LoginView.as_view(template_name="registration/login.html"),name="login"),
+    path("accounts/login/", auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
 
     path(
         "accounts/logout/",
         auth_views.LogoutView.as_view(),
         name="logout"
+    ),
+    path(
+        "article/<int:article_id>/archive/",
+        views.archive_article,
+        name="article_archive"
+    ),
+    path(
+        "article/<int:article_id>/restore/",
+        views.restore_article,
+        name="article_restore"
     ),
 ]
 if settings.DEBUG:

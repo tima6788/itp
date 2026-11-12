@@ -21,6 +21,11 @@ class Article(models.Model):
         verbose_name="Опубликована",
     )
 
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Активна"
+    )
+
     author = models.CharField(
         max_length=100,
         default="Редакция",
@@ -42,4 +47,3 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
-

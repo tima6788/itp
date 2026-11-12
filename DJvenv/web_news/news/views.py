@@ -8,6 +8,7 @@ from .models import Article
 #     return HttpResponse("Главная страница новостей")
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 # def index(request):
@@ -77,6 +78,7 @@ def category(request, category_name=None):
 
 
 @login_required
+@permission_required("news.change_article", raise_exception=True)
 def edit_article(request, article_id):
     article = get_object_or_404(
         Article,
@@ -136,6 +138,7 @@ def test_form(request):
 
 
 @login_required
+@permission_required("news.add_article", raise_exception=True)
 def article_created(request):
     return render(
         request,
@@ -168,10 +171,8 @@ def add_article(request):
     )
 
 
-
-
-
 @login_required
+@permission_required("news.delete_article", raise_exception=True)
 def delete_article(request, article_id):
     article = get_object_or_404(
         Article,
@@ -190,4 +191,58 @@ def delete_article(request, article_id):
         request,
         "news/delete_article.html",
         context
+    )
+
+
+@login_required
+@permission_required("news.change_article", raise_exception=True)
+def archive_article(request, article_id):
+
+    article = get_object_or_404(
+        Article,
+        id=article_id,
+        is_active=True
+    )
+
+    if request.method == "POST":
+
+        article.is_active = False
+
+        article.save(
+            update_fields=["is_active"]
+        )
+
+        return redirect("home")
+
+    return render(
+        request,
+        "news/archive_article.html",
+        {"article": article}
+    )
+
+
+@login_required
+@permission_required("news.change_article", raise_exception=True)
+def restore_article(request, article_id):
+
+    article = get_object_or_404(
+        Article,
+        id=article_id,
+        is_active=False
+    )
+
+    if request.method == "POST":
+
+        article.is_active = True
+
+        article.save(
+            update_fields=["is_active"]
+        )
+
+        return redirect("home")
+
+    return render(
+        request,
+        "news/restore_article.html",
+        {"article": article}
     )

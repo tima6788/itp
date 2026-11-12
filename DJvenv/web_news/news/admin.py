@@ -10,12 +10,14 @@ class ArticleAdmin(admin.ModelAdmin):
         "category",
         "created_at",
         "is_published",
+        "is_active",
     )
 
     list_filter = (
         "category",
         "is_published",
         "created_at",
+        "is_active",
     )
 
     search_fields = (
