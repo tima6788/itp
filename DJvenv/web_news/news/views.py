@@ -172,7 +172,7 @@ def add_article(request):
 
 
 @login_required
-@permission_required("news.delete_article", raise_exception=True)
+@permission_required("news.delete_article", raise_exception=True)g
 def delete_article(request, article_id):
     article = get_object_or_404(
         Article,
