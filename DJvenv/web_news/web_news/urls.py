@@ -65,6 +65,11 @@ urlpatterns = [
         views.restore_article,
         name="article_restore"
     ),
+    path(
+        "articles/archived/",
+        views.archived_articles,
+        name="archived_articles"
+),
 ]
 if settings.DEBUG:
     urlpatterns += static(

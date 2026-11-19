@@ -17,7 +17,20 @@
         </p>
     </div>
 </div>
+<form method="GET">
 
+    <input
+        type="text"
+        name="q"
+        placeholder="Введите название новости"
+        value="{{ query }}"
+    >
+
+    <button type="submit">
+        Найти
+    </button>
+
+</form>
 <div class="row">
     {% for article in articles %}
         <div class="col-12 mb-4">
@@ -57,5 +70,36 @@
         </div>
     {% endfor %}
 </div>
+<div class="pagination">
 
+    {% if page_obj.has_previous %}
+
+        <a href="?page=1&q={{ query }}">
+            Первая
+        </a>
+
+        <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}">
+            Назад
+        </a>
+
+    {% endif %}
+
+    <span>
+        Страница {{ page_obj.number }}
+        из {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+
+        <a href="?page={{ page_obj.next_page_number }}&q={{ query }}">
+            Вперёд
+        </a>
+
+        <a href="?page={{ page_obj.paginator.num_pages }}&q={{ query }}">
+            Последняя
+        </a>
+
+    {% endif %}
+
+</div>
 {% endblock %}

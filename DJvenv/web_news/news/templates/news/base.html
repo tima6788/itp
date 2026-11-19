@@ -39,7 +39,13 @@
                     <a href="{% url 'add_article' %}">
                         Создать новость
                     </a>
+                {% if perms.news.change_article %}
 
+                    <a href="{% url 'archived_articles' %}">
+                        Скрытые новости
+                    </a>
+
+                {% endif %}
                 {% endif %}
                 <a class="nav-link" href="{% url 'category_detail' category_name='Спорт' %}">Спорт</a>
                 {% if user.is_authenticated %}
@@ -67,6 +73,7 @@
                 </a>
 
                 {% endif %}
+
             </div>
         </div>
     </nav>

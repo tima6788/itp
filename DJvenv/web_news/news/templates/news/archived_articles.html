@@ -1,0 +1,35 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+
+<h1>Скрытые новости</h1>
+
+{% for article in articles %}
+
+    <div>
+
+        <h3>{{ article.title }}</h3>
+
+        <p>{{ article.category }}</p>
+
+        <form
+            method="POST"
+            action="{% url 'article_restore' article_id=article.id %}"
+        >
+            {% csrf_token %}
+
+            <button type="submit">
+                Восстановить
+            </button>
+
+        </form>
+
+    </div>
+
+{% empty %}
+
+    <p>Скрытых новостей пока нет.</p>
+
+{% endfor %}
+
+{% endblock %}
